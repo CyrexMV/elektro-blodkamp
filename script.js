@@ -97,6 +97,40 @@ if (checkList) {
   });
 }
 
+// FAQ-Seite: Suche + Kategorien
+const faqSearch = document.getElementById('faqSearch');
+if (faqSearch) {
+  const groups = [...document.querySelectorAll('.faq-group')];
+  const cats = [...document.querySelectorAll('.faq-cats button')];
+  const empty = document.getElementById('faqEmpty');
+  let activeCat = 'all';
+
+  const filter = () => {
+    const q = faqSearch.value.trim().toLowerCase();
+    let total = 0;
+    groups.forEach(group => {
+      const inCat = activeCat === 'all' || group.dataset.cat === activeCat;
+      let visible = 0;
+      group.querySelectorAll('details').forEach(d => {
+        const match = inCat && (!q || d.textContent.toLowerCase().includes(q));
+        d.hidden = !match;
+        if (q && match) d.open = true;
+        if (match) visible++;
+      });
+      group.hidden = visible === 0;
+      total += visible;
+    });
+    empty.hidden = total > 0;
+  };
+
+  faqSearch.addEventListener('input', filter);
+  cats.forEach(btn => btn.addEventListener('click', () => {
+    cats.forEach(b => b.classList.toggle('is-on', b === btn));
+    activeCat = btn.dataset.cat;
+    filter();
+  }));
+}
+
 // Kontaktformular -> vorbereitete E-Mail
 const form = document.getElementById('contactForm');
 if (form) {
