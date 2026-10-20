@@ -19,6 +19,20 @@ if (toggle) {
   }));
 }
 
+// Aktiven Abschnitt in der Navigation markieren
+const spyLinks = [...document.querySelectorAll('.nav__links a[href^="#"]')];
+const spySections = spyLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+if (spySections.length) {
+  const markActive = () => {
+    const y = window.scrollY + window.innerHeight * 0.35;
+    let current = null;
+    spySections.forEach(sec => { if (sec.offsetTop <= y) current = sec; });
+    spyLinks.forEach(a => a.classList.toggle('is-active', !!current && a.getAttribute('href') === '#' + current.id));
+  };
+  window.addEventListener('scroll', markActive, { passive: true });
+  markActive();
+}
+
 // Scroll-Animationen
 const revealTargets = document.querySelectorAll('.reveal, .bolt-line');
 if ('IntersectionObserver' in window) {
