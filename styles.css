@@ -543,6 +543,7 @@ svg { width: 1.2em; height: 1.2em; fill: none; stroke: currentColor; stroke-widt
 .profile__list dd { margin: 0; color: var(--ink); font-weight: 500; word-break: break-word; }
 .profile__list a { text-decoration: none; }
 .profile__list a:hover { color: var(--red); }
+.profile__list .profile__stack { grid-template-columns: 1fr; gap: .4rem; }
 .profile__tags { list-style: none; margin: 0; padding: 0; display: grid; gap: .25rem; }
 .profile__tags li { position: relative; padding-left: .9rem; }
 .profile__tags li::before { content: ""; position: absolute; left: 0; top: .6em; width: 5px; height: 5px; border-radius: 50%; background: var(--red); }
